@@ -19,20 +19,30 @@
 					<h2 class="fw-bold text-white">Server Side Data With Yajra Databox</h2>
 				</div>
 
-				<div class="col-12">
-					<table id="users-table" class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Created At</th>
-							</tr>
-						</thead>
-					</table>
+				@session('success')
+					<div class="col-12">
+						<div class="alert alert-success" role="alert">
+							<strong>Success! </strong>{{ session('success') }}
+						</div>
+					</div>
 				</div>
+			@endsession
+
+			<div class="col-12">
+				<table id="users-table" class="table table-striped table-hover data-table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Created At</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
+
 
 
 
@@ -41,42 +51,33 @@
 		<!-- Include DataTables JS -->
 		<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 		<script>
-			$(document).ready(function() {
-				$('#users-table').DataTable({
-					processing: true,
-					serverSide: true,
-					ajax: {
-						url: '{{ route('users.index') }}',
-						type: 'GET'
+			var table = $('.data-table').DataTable({
+				processing: true,
+				serverSide: true,
+				ajax: "{{ route('users.index') }}",
+				columns: [{
+						data: 'DT_RowIndex',
+						name: 'DT_RowIndex'
 					},
-					columns: [{
-							data: 'id',
-							name: 'id'
-						},
-						{
-							data: 'name',
-							name: 'name'
-						},
-						{
-							data: 'email',
-							name: 'email'
-						},
-						{
-							data: 'created_at',
-							name: 'created_at',
-							render: function(data, type, row) {
-								if (type === 'display' || type === 'filter') {
-									return new Date(data).toLocaleDateString('en-GB', {
-										day: '2-digit',
-										month: 'short',
-										year: 'numeric'
-									});
-								}
-								return data;
-							}
-						}
-					]
-				});
+					{
+						data: 'name',
+						name: 'name'
+					},
+					{
+						data: 'email',
+						name: 'email'
+					},
+					{
+						data: 'created_at',
+						name: 'created_at'
+					},
+					{
+						data: 'action',
+						name: 'action',
+						orderable: false,
+						searchable: false
+					},
+				]
 			});
 		</script>
 

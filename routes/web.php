@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('users.index');
-Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('users.create');
-Route::post('/users', [App\Http\Controllers\HomeController::class, 'store'])->name('users.store');
-Route::get('/users/{id}/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [App\Http\Controllers\HomeController::class, 'update'])->name('users.update');
-Route::delete('/users/{id}/delete', [App\Http\Controllers\HomeController::class, 'destroy'])->name('users.destroy');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/users/retrieved', [App\Http\Controllers\HomeController::class, 'retrievedUser'])->name('users.retrieved');
+Route::post('/status/{id}', [App\Http\Controllers\HomeController::class, 'statusUser'])->name('status.update');
+Route::get('/users/{id}/view', [App\Http\Controllers\HomeController::class, 'viewUser']);
+Route::post('/users/{id}/edit', [App\Http\Controllers\HomeController::class, 'editUser']);
+Route::delete('/users/{id}/delete', [App\Http\Controllers\HomeController::class, 'deleteUser']);
